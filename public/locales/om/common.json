@@ -1,0 +1,196 @@
+{
+  "common": {
+    "loading": "Fe'amaa jira...",
+    "error": "Dogoggorri uumameera",
+    "retry": "Irra deebi'i",
+    "save": "Olkaa'i",
+    "cancel": "Haqi",
+    "delete": "Haqi",
+    "edit": "Gulaali",
+    "search": "Barbaadi",
+    "filter": "Calali",
+    "apply": "Fayyadami",
+    "reset": "Irra haaromsi",
+    "back": "Duuba",
+    "next": "Kan itti aanu",
+    "previous": "Kan dura"
+  },
+  "nav": {
+    "home": "Fuula Jalqabaa",
+    "cars": "Konkolaattota",
+    "about": "Waa'ee Keenya",
+    "faq": "Gaaffiiwwan",
+    "contact": "Nu Qunnamaa",
+    "dashboard": "Daashboordii",
+    "login": "Seeni",
+    "register": "Galmaa'i",
+    "logout": "Ba'i",
+    "profile": "Piroofaayilii"
+  },
+  "home": {
+    "hero": {
+      "title": "Konkolaataa Abjuu Keeti Kireeffadhu",
+      "subtitle": "Tajaajila kiraa konkolaataa ammayyaa fi amanamaa",
+      "cta": "Konkolaattota Ilaali"
+    },
+    "features": {
+      "fast_booking": {
+        "title": "Kireeffannaa Saffisaa",
+        "description": "Konkolaataa kee saffisaan kireeffadhu"
+      },
+      "best_price": {
+        "title": "Gatii Gaarii",
+        "description": "Gatii madaalawaa fi ifaa"
+      },
+      "with_driver": {
+        "title": "Konkolaachisaa Waliin",
+        "description": "Filannoo konkolaachisaa ogummaa qabu waliin"
+      }
+    }
+  },
+  "cars": {
+    "title": "Konkolaattota Keenya",
+    "filters": {
+      "brand": "Biraandii",
+      "price_range": "Hanga Gatii",
+      "seats": "Teessoo",
+      "fuel_type": "Gosa Boba'aa",
+      "driver": "Filannoo Konkolaachisaa"
+    },
+    "card": {
+      "per_day": "guyyaatti",
+      "seats": "teessoo",
+      "fuel": "boba'aa",
+      "with_driver": "Konkolaachisaa Waliin",
+      "without_driver": "Konkolaachisaa Malee",
+      "book_now": "Amma Kireeffadhu"
+    },
+    "empty": "Konkolaataan hin argamne",
+    "error": "Konkolaattota fe'uu hin danda'amne"
+  },
+  "auth": {
+    "login": {
+      "title": "Baga Nagaan Dhuftan",
+      "subtitle": "Akkaawuntii kee seeni",
+      "email": "Iimeelii",
+      "password": "Jecha Icciitii",
+      "remember": "Na yaadadhu",
+      "forgot_password": "Jecha icciitii irraanfatteetta?",
+      "no_account": "Akkaawuntii hin qabduu?",
+      "sign_up": "Galmaa'i"
+    },
+    "register": {
+      "title": "Akkaawuntii Uumi",
+      "subtitle": "Akkaawuntii bilisaa kee waliin jalqabi",
+      "name": "Maqaa Guutuu",
+      "email": "Iimeelii",
+      "password": "Jecha Icciitii",
+      "confirm_password": "Jecha Icciitii Mirkaneessi",
+      "have_account": "Akkaawuntii qabdaa?",
+      "sign_in": "Seeni"
+    }
+  },
+  "booking": {
+    "start_date": "Guyyaa Jalqabaa",
+    "end_date": "Guyyaa Xumuraa",
+    "driver_option": "Filannoo Konkolaachisaa",
+    "with_driver": "Konkolaachisaa Waliin",
+    "without_driver": "Konkolaachisaa Malee",
+    "total_price": "Gatii Waliigalaa",
+    "days": "Guyyaa",
+    "book_now": "Amma Kireeffadhu",
+    "success": "Kireeffannaan milkaa'eera!",
+    "error": "Kireeffannaan hin milkoofne"
+  },
+  "dashboard": {
+    "my_bookings": "Kireeffannaa Koo",
+    "profile": "Piroofaayilii",
+    "settings": "Sajoo",
+    "status": {
+      "pending": "Eeggamaa jira",
+      "approved": "Hayyamameera",
+      "rejected": "Diddameera",
+      "cancelled": "Haqameera",
+      "completed": "Xumurameera"
+    }
+  },
+  "footer": {
+    "company": "Kompaanii",
+    "about_us": "Waa'ee Keenya",
+    "careers": "Carraa Hojii",
+    "contact": "Nu Qunnamaa",
+    "support": "Deeggarsa",
+    "help": "Giddugala Deeggarsaa",
+    "terms": "Haala Tajaajilaa",
+    "privacy": "Imaammata Dhuunfaa",
+    "rights": "Mirgi hundi eegama"
+  },
+  "about": {
+    "title": "Waa'ee CarRental",
+    "subtitle": "Hiriyoo amanamaa tajaajila kiraa konkolaataa sadarkaa olaanaa",
+    "stats": {
+      "cars": "Konkolaattota",
+      "customers": "Maamiltoota",
+      "years": "Waggaa",
+      "support": "Deeggarsa"
+    },
+    "story": {
+      "title": "Seenaa Keenya",
+      "p1": "CarRental bara 2019 jalqabamee tajaajila kiraa konkolaataa ammayyaa fi amanamaa kennuuf hundaa'e.",
+      "p2": "Konkolaattota muraasa irraa jalqabnee amma maamiltoota hedduu gammachiisaa jirra.",
+      "p3": "Kaayyoon keenya kireeffannaa konkolaataa salphaa, saffisaa fi amanamaa taasisuudha."
+    },
+    "values": {
+      "title": "Gatiiwwan Keenya",
+      "quality": {
+        "title": "Tajaajila Qulqullina Qabu",
+        "description": "Konkolaattota qulqullina olaanaa qaban qopheessina."
+      },
+      "price": {
+        "title": "Gatii Madaalawaa",
+        "description": "Gatii ifaa fi madaalawaa kaffaltii dhokataa malee."
+      },
+      "driver": {
+        "title": "Konkolaachisoota Ogummaa Qaban",
+        "description": "Konkolaachisoota muuxannoo fi hayyama qaban."
+      },
+      "secure": {
+        "title": "Sirna Amanamaa",
+        "description": "Sirna kireeffannaa nagaa fi amanamaa."
+      }
+    }
+  },
+  "faq": {
+    "title": "Gaaffiiwwan Yeroo Baay'ee Gaafataman",
+    "subtitle": "Deebii gaaffiiwwan tajaajila keenya irratti yeroo baay'ee gaafataman",
+    "search": "Gaaffii barbaadi...",
+    "noResults": "Gaaffiin walsimu hin argamne"
+  },
+  "contact": {
+    "title": "Nu Qunnamaa",
+    "subtitle": "Garee keenya waliin salphaatti qunnamaa",
+    "info": {
+      "title": "Odeeffannoo Qunnamtii",
+      "address": "Teessoo",
+      "phone": "Bilbila",
+      "email": "Iimeelii",
+      "hours": "Sa'aatii Hojii",
+      "addressLine1": "Finfinnee, Itoophiyaa",
+      "phone1": "+251 11 123 4567",
+      "phone2": "+251 91 234 5678",
+      "email1": "info@carrental.com",
+      "email2": "support@carrental.com",
+      "hoursWeek": "Wiixata - Jimaata: 8:00 AM - 8:00 PM",
+      "hoursWeekend": "Sanbata - Dilbata: 9:00 AM - 6:00 PM"
+    },
+    "form": {
+      "title": "Ergaa Nuuf Ergi",
+      "name": "Maqaa Guutuu",
+      "email": "Iimeelii",
+      "message": "Ergaa",
+      "send": "Ergaa Ergi",
+      "success": "Ergaan keessan milkaa'inaan ergameera!",
+      "error": "Ergaa erguu hin danda'amne"
+    }
+  }
+}
