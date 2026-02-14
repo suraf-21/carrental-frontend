@@ -1,7 +1,8 @@
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL;
+// ✅ FIXED for Vite (not process.env)
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -31,11 +32,11 @@ api.interceptors.response.use(
       window.location.href = '/login';
       toast.error('Session expired. Please login again.');
     }
-    
+
     if (error.response?.status === 500) {
       toast.error('Server error. Please try again later.');
     }
-    
+
     return Promise.reject(error);
   }
 );
