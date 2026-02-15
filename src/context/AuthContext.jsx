@@ -68,27 +68,21 @@ export const AuthProvider = ({ children }) => {
         try {
           console.log('🔍 Initializing auth with token:', token.substring(0, 20) + '...');
           const response = await authService.getCurrentUser();
-          console.log('🔍 Init auth FULL response:', response);
-          console.log('🔍 Init auth response.data:', response.data);
+          console.log('🔍 Init auth response:', response.data);
           
-          // Try different response structures
+          // Handle different response structures
           let userData = null;
           
           if (response.data?.data) {
-            // Structure: { success: true, data: { user: {...} } }
             userData = response.data.data;
             console.log('🔍 Using response.data.data structure');
           } else if (response.data?.user) {
-            // Structure: { success: true, user: {...} }
             userData = response.data.user;
             console.log('🔍 Using response.data.user structure');
           } else if (response.data) {
-            // Structure: { user: {...} } directly
             userData = response.data;
             console.log('🔍 Using response.data directly');
           }
-          
-          console.log('🔍 Extracted user data:', userData);
           
           if (!userData) {
             throw new Error('No user data found in response');
@@ -116,43 +110,33 @@ export const AuthProvider = ({ children }) => {
     try {
       console.log('🔍 Login attempt with:', email);
       const response = await authService.login({ email, password });
-      console.log('🔍 Login FULL response:', response);
-      console.log('🔍 Login response.data:', response.data);
-      console.log('🔍 Login response.status:', response.status);
-      console.log('🔍 Login response.headers:', response.headers);
+      console.log('🔍 Login response:', response.data);
       
-      // Log the entire structure to see what we're getting
-      console.log('🔍 Response structure:', Object.keys(response.data));
-      
-      // Try different response structures to find where user and token are
       let user = null;
       let token = null;
       
-      // Check for nested data.data structure (your backend)
+      // Handle nested data.data structure
       if (response.data?.data) {
         console.log('🔍 Found response.data.data');
         const nestedData = response.data.data;
-        console.log('🔍 nestedData keys:', Object.keys(nestedData));
         
+        // Case 1: data.data contains user and token properties
         if (nestedData.user && nestedData.token) {
           user = nestedData.user;
           token = nestedData.token;
           console.log('🔍 Found user and token in data.data');
-        } else if (nestedData) {
-          // Maybe the whole data.data is the user and token is separate?
-          console.log('🔍 Checking if nestedData is the user object');
+        }
+        // Case 2: data.data is the user object and token is in data.data.token
+        else if (nestedData._id && nestedData.email) {
           user = nestedData;
-          // Try to find token elsewhere
+          if (nestedData.token) {
+            token = nestedData.token;
+          }
+          console.log('🔍 Using data.data as user object');
         }
       }
       
-      // Check for direct data.user structure
-      if (!user && response.data?.user) {
-        console.log('🔍 Found response.data.user');
-        user = response.data.user;
-      }
-      
-      // Check for token in different places
+      // Check for token in other places if not found
       if (!token) {
         if (response.data?.token) {
           token = response.data.token;
@@ -163,33 +147,27 @@ export const AuthProvider = ({ children }) => {
         }
       }
       
+      // Check for user in other places if not found
+      if (!user && response.data?.user) {
+        user = response.data.user;
+        console.log('🔍 Found user in response.data.user');
+      }
+      
       console.log('🔍 Extracted user:', user);
       console.log('🔍 Extracted token:', token ? token.substring(0, 20) + '...' : null);
       
       if (!user || !token) {
         console.error('❌ Missing user or token in response');
-        console.log('❌ Full response data:', JSON.stringify(response.data, null, 2));
+        console.log('❌ Full response:', JSON.stringify(response.data, null, 2));
         throw new Error('Invalid response structure: missing user or token');
       }
       
-      // Store token
       localStorage.setItem('token', token);
-      console.log('🔍 Token stored in localStorage');
-      
-      // Dispatch success
-      dispatch({ 
-        type: 'LOGIN_SUCCESS', 
-        payload: { user, token } 
-      });
-      
-      console.log('🔍 Login success dispatched');
+      dispatch({ type: 'LOGIN_SUCCESS', payload: { user, token } });
       toast.success('Login successful!');
       return response;
     } catch (error) {
       console.error('❌ Login error:', error);
-      console.error('❌ Error response:', error.response?.data);
-      console.error('❌ Error status:', error.response?.status);
-      
       const message = error.response?.data?.message || error.message || 'Login failed';
       dispatch({ type: 'LOGIN_FAILURE', payload: message });
       toast.error(message);
@@ -203,35 +181,96 @@ export const AuthProvider = ({ children }) => {
       console.log('🔍 Register attempt:', userData.email);
       const response = await authService.register(userData);
       console.log('🔍 Register response:', response.data);
+      console.log('🔍 Register status:', response.status);
       
-      // Similar structure handling as login
       let user = null;
       let token = null;
       
-      if (response.data?.data?.user && response.data?.data?.token) {
-        user = response.data.data.user;
-        token = response.data.data.token;
-      } else if (response.data?.user && response.data?.token) {
-        user = response.data.user;
-        token = response.data.token;
+      // Handle nested data.data structure
+      if (response.data?.data) {
+        console.log('🔍 Found response.data.data');
+        const nestedData = response.data.data;
+        console.log('🔍 nestedData keys:', Object.keys(nestedData));
+        
+        // Case 1: data.data contains user and token properties
+        if (nestedData.user && nestedData.token) {
+          user = nestedData.user;
+          token = nestedData.token;
+          console.log('🔍 Found user and token in data.data');
+        }
+        // Case 2: data.data is the user object (has _id, email, etc.)
+        else if (nestedData._id || nestedData.email) {
+          user = nestedData;
+          console.log('🔍 Using data.data as user object');
+          
+          // Look for token in different places
+          if (nestedData.token) {
+            token = nestedData.token;
+          } else if (response.data.data.token) {
+            token = response.data.data.token;
+          }
+        }
+        // Case 3: data.data has token and user is elsewhere
+        else if (nestedData.token && response.data.data.user) {
+          token = nestedData.token;
+          user = response.data.data.user;
+        }
       }
       
+      // Check for token in other places if not found
+      if (!token) {
+        if (response.data?.token) {
+          token = response.data.token;
+          console.log('🔍 Found token in response.data.token');
+        } else if (response.data?.data?.token) {
+          token = response.data.data.token;
+          console.log('🔍 Found token in response.data.data.token');
+        }
+      }
+      
+      // Check for user in other places if not found
+      if (!user) {
+        if (response.data?.user) {
+          user = response.data.user;
+          console.log('🔍 Found user in response.data.user');
+        } else if (response.data?.data?.user) {
+          user = response.data.data.user;
+          console.log('🔍 Found user in response.data.data.user');
+        } else if (response.data?._id || response.data?.email) {
+          user = response.data;
+          console.log('🔍 Using response.data as user object');
+        }
+      }
+      
+      console.log('🔍 Extracted user:', user);
+      console.log('🔍 Extracted token:', token ? token.substring(0, 20) + '...' : null);
+      
       if (!user || !token) {
-        throw new Error('Invalid response structure');
+        console.error('❌ Missing user or token in response');
+        console.log('❌ Full response data:', JSON.stringify(response.data, null, 2));
+        
+        // Check specific error for user already exists
+        if (response.data?.message?.includes('already exists')) {
+          throw new Error('User already exists');
+        }
+        throw new Error('Invalid response structure: missing user or token');
       }
       
       localStorage.setItem('token', token);
-      
-      dispatch({ 
-        type: 'LOGIN_SUCCESS', 
-        payload: { user, token } 
-      });
-      
+      dispatch({ type: 'LOGIN_SUCCESS', payload: { user, token } });
       toast.success('Registration successful!');
       return response;
     } catch (error) {
       console.error('❌ Register error:', error);
-      const message = error.response?.data?.message || 'Registration failed';
+      
+      // Handle specific error messages
+      let message = 'Registration failed';
+      if (error.message === 'User already exists' || error.response?.data?.message?.includes('already exists')) {
+        message = 'User already exists. Please login instead.';
+      } else {
+        message = error.response?.data?.message || error.message || 'Registration failed';
+      }
+      
       dispatch({ type: 'LOGIN_FAILURE', payload: message });
       toast.error(message);
       throw error;
@@ -243,6 +282,16 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: 'LOGOUT' });
     toast.success('Logged out successfully');
   };
+
+  // Debug logs for state changes
+  useEffect(() => {
+    console.log('🔍 Auth state:', {
+      user: state.user?.email,
+      role: state.user?.role,
+      isAuthenticated: state.isAuthenticated,
+      isLoading: state.isLoading
+    });
+  }, [state]);
 
   return (
     <AuthContext.Provider value={{
